@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import router from "./routes/user.routes.js";
 import blogsrouter from "./routes/blogs.routes";
-import commentsrouter from "./routes/comments.routes"
+import commentsrouter from "./routes/comments.routes";
+import messagesRoute from "./routes/messages.routes"
 
 dotenv.config()
 
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use(router)
 app.use(blogsrouter);
 app.use(commentsrouter)
+app.use(messagesRoute)
 
 app.get('/', (req, res) => res.json({message: "welcome to my page"}))
 
