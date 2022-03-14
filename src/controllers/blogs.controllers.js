@@ -1,11 +1,11 @@
 import Blogs from "../models/blogsSchema";
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
 dotenv.config()
 const TOKEN_KEY = process.env.TOKEN_KEY;
 
-const createblog = async (req, res) => {
+const createblog =  async (req, res) => {
   
   const token = req.headers.authorization.split(' ')[1];
   const User = jwt.verify(token, TOKEN_KEY);

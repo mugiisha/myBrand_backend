@@ -11,7 +11,7 @@ const commentsrouter = express.Router();
 commentsrouter.use(blogsRoutes)
 
 commentsrouter.post('/getblogs/:id/comment',idValidation,auth,   comment);
-commentsrouter.get('/getBlog/:id/getcomments', idValidation,admin, getcomments)
+commentsrouter.get('/getBlog/:id/getcomments', idValidation, getcomments)
 commentsrouter.delete('/deletecomment/:id', idValidation, deletecomment)
 commentsrouter.patch('/updatecomment/:id', idValidation, updatecomment)
 
