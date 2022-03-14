@@ -13,13 +13,13 @@ const blogsSchema = new Schema(
             type: String,
             require: true,
         },
+        image: {
+            type: String,
+            require: true
+        },
         descr: {
             type: String,
-        },
-        comments: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment",
-        }]
+        }
     }
 )
 blogsSchema.virtual('url').get(function(){
