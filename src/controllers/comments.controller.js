@@ -1,67 +1,74 @@
 import Comment from "../models/commentsSchema";
-import Blogs from "../models/blogsSchema";
-import jwt from "jsonwebtoken";
-import dotenv from 'dotenv';
-dotenv.config();
 
-const TOKEN_KEY = process.env.TOKEN_KEY;
+//adding a comment on a blog
 
 const comment = async (req, res) => {
+  try {
     const id = req.params.id;
-    const token = req.headers.authorization.split(' ')[1];
-    const decode = jwt.verify(token, TOKEN_KEY);
-    const {user} = decode
-    // get the comment text and record post id
      const comment = await Comment.create({
-     name: user.name,
+     name: req.user.name,
      comment:req.body.comment,
      blog: id
   })
     // save comment
  await comment.save();
-    // get this particular post
- const blogRelated = await Blogs.findById(id);
-    // push the comment into the post.comments array
-await blogRelated.comments.push(comment);
-    // save and redirect...
- await blogRelated.save(function(err) {
- if(err) {console.log(err)}
- res.json({message: `comment successfully added`, comment})
- })
-
+  res.json({message: `comment successfully added`, comment})
+    
+  } catch (error) {
+    res.status(500).json({message: "server error"})
+  }
 }
 
+// getting all comments on a given blog
+
 const getcomments = async (req, res) => {
+  try {
+    
     const id = req.params.id
     Comment.find({ blog: id}, function (err, docs) {
         if (err){
-            console.log(err);
+            res.status(500).json({message: "server error"});
         }
         else{
-        
-            // console.log("First function call : ", docs);
             res.status(201).json({message: "comments succesfully retrieved", docs})
         }
     });
+  } catch (error) {
+    res.status(500).json({message: "server error"})
+  }
 
 }
 
+//delete a comment by its ID
+
 const deletecomment = (req, res) => {
+  try {
     Comment.findByIdAndRemove(req.params.id)
       .then(comment => {
         if (!comment) return  res.status(404).json({message:"internal error"})
         
-       
         res.json({message:`comment by  '${comment.name}' successfully deleted`})
       })
+    
+  } catch (error) {
+    res.status(500).json({message: "server error"})
   }
+  }
+
+//update a comment by its ID
+
 const updatecomment = (req, res) => {
+  try {
     Comment.findByIdAndUpdate(req.params.id, req.body)
       .then(comment => {
         if (!comment) return  res.status(404).json({message:"internal error"})
        
         res.json({message:`comment by  '${comment.name}' successfully updated`})
       })
+    
+  } catch (error) {
+    res.status(500).json({message: "server error"}) 
+  }
   }
   
 

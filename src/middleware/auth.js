@@ -10,7 +10,8 @@ const auth = (req, res, next) => {
     if (!token) return res.status(401).json({message: 'Access denied. no token provided'})
     try {
       const decode = jwt.verify(token, TOKEN_KEY);
-      req.name = decode.name;
+      const {user} = decode;
+      req.user = user;
       return next();
     } catch (error) {
       return res.status(401).json({message: 'Invalid token.'});
@@ -31,7 +32,8 @@ const auth = (req, res, next) => {
       return res.status(401).json({message: "you should be logged in as an admin to get access to this"})
     }
     else {
-      req.author = user.name
+      req.author = user.name;
+      req.name = user.name
       next();
     }
 
