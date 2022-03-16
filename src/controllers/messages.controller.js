@@ -10,12 +10,9 @@ const send = async (req, res) => {
     if (!(req.body.message)){
         return res.status(400).json({message: "enter message"});
     } else{
-        const token = req.headers.authorization.split(' ')[1];
-        const decode = jwt.verify(token, TOKEN_KEY);
-        const {user} = decode
-
+       
          const message = await Message.create({
-         name: user.name,
+         name: req.user.name,
          message:req.body.message,
       })
         // save comment

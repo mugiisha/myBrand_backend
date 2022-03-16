@@ -11,8 +11,10 @@ const createblog =  async (req, res) => {
  
 
     try {
-      if (!req.file) return res.status(400).json({message: "image is required"});
+      if (!req.file) return res.status(400).json({message: "image is required"})
+      
       const image = await uploadToCloud(req.file, res);
+      
         // Get user input
         const { title, descr } = req.body;
       // check if blog already exist

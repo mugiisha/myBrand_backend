@@ -1,5 +1,6 @@
 import express from "express";
-import { idValidation } from "../middleware/id.valid";
+import { blogIdValidation } from "../middleware/validations/blogs.validation";
+import { commentIdValidation } from "../middleware/validations/comments.validation";
 import dotenv from 'dotenv'
 import { comment, getcomments, deletecomment, updatecomment} from "../controllers/comments.controller";
 import { auth, admin } from "../middleware/auth";
@@ -10,9 +11,9 @@ dotenv.config();
 const commentsrouter = express.Router();
 commentsrouter.use(blogsRoutes)
 
-commentsrouter.post('/getblogs/:id/comment',idValidation,auth,   comment);
-commentsrouter.get('/getBlog/:id/getcomments', idValidation, getcomments)
-commentsrouter.delete('/deletecomment/:id', idValidation, deletecomment)
-commentsrouter.patch('/updatecomment/:id', idValidation, updatecomment)
+commentsrouter.post('/getblogs/:id/comment',blogIdValidation,auth,   comment);
+commentsrouter.get('/getBlog/:id/getcomments', blogIdValidation, getcomments)
+commentsrouter.delete('/deletecomment/:id',commentIdValidation ,admin, deletecomment)
+commentsrouter.patch('/updatecomment/:id',commentIdValidation , updatecomment)
 
 export {commentsrouter as default}

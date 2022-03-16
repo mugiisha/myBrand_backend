@@ -32,7 +32,8 @@ const auth = (req, res, next) => {
       return res.status(401).json({message: "you should be logged in as an admin to get access to this"})
     }
     else {
-      req.author = user.name
+      req.author = user.name;
+      req.name = user.name
       next();
     }
 
