@@ -12,20 +12,13 @@ dotenv.config();
 const register = async (req, res) => {
 
     try {
-        // Get user input
         const { name , email, password } = req.body;
-    
-        // Validate user input
-        if (!(email && password && name)) {
-          res.status(400).json({message: "All inputs are required"});
-        }
-    
+        
         // check if user already exist
-        // Validate if user exist in our database
         const oldUser = await User.findOne({ email });
-    
+  
         if (oldUser) {
-          return res.status(409).json({message: `User with email ${email} already Exist`});
+          return res.status(400).json({message: `User with email ${email} already Exist`});
         }
     
         //Encrypt user password
@@ -39,15 +32,17 @@ const register = async (req, res) => {
           role: req.body.role,
 
         });   
-    
         // return new user
         res.status(201).json({message: "user successfully registered",user});
 
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (error) {
+        return res.status(500).json({
+          status: 500,
+          message: "server error",
+        });
       // Our register logic ends here
-};
+      };
+}
     
   
 
@@ -62,7 +57,7 @@ const login = async (req, res) => {
 
     // Validate user input
     if (!(email && password)) {
-      res.status(400).json({message: "All input is required"});
+      res.status(400).json({message: "All inputs are required"});
     }
     // Validate if user exist in our database
     const user = await User.findOne({ email });
@@ -85,69 +80,79 @@ const login = async (req, res) => {
 
      res.status(400).json({message:"Invalid Credentials"});
   }
-   catch (err) {
-    console.log(err);
-  }
+  catch (error) {
+    return res.status(500).json({
+      status: 500,
+      message: "server error",
+    });
   // Our register logic ends here
-};
-
+  };
+}
 //getting all users
 
 const getUsers = (req, res) => {
-  User.find({}, (err, users) => {
-    var userMap = {};
-
-    users.forEach(user => {
-      userMap[user.id] = user;
+  try {
+    
+    User.find({}, (err, users) => {
+      var userMap = {};
+  
+      users.forEach(user => {
+        userMap[user.id] = user;
+      });
+  
+      res.send(userMap);  
     });
-
-    res.send(userMap);  
-  });
+  } catch (error) {
+    res.status(500).json({message: "server error"})
+  }
 }
 //getting one user by ID
 
 const getUser = (req, res) =>{
-  User.findById(req.params.id)
-    .then(user =>{
-      if(!user) return res.status(404).json({message:"no user found"})
-      res.status(200).json({message:`user ${user.name} succesfully retrieved`, user})
-    })
+  try {
+    User.findById(req.params.id)
+      .then(user =>{
+        if(!user) return res.status(404).json({message:"no user found"})
+        res.status(200).json({message:`user ${user.name} succesfully retrieved`, user})
+      })
+    
+  } catch (error) {
+    res.status(500).json({message: "server error"}) 
+  }
 }
 
-//updating a user
-
-// const updateUser = (req, res) => {
-//   User.findById(req.params.id)
-//     .then(user => {
-//       if (!user) return  res.status(404).json({message:"no user found"})
-//       const update = req.body;
-//       Object.assign(user, update)
-//       res.json({message:`user with ${user.id} successfully updated`, user})
-//     })
-// }
-
 const updateUser = async (req, res) => {
-  if(req.body.password){
-    const encryptedPassword = await bcrypt.hash(req.body.password, 10);
-    req.body.password = encryptedPassword;
+  try {
+    if(req.body.password){
+      const encryptedPassword = await bcrypt.hash(req.body.password, 10);
+      req.body.password = encryptedPassword;
+    }
+    User.findByIdAndUpdate(req.params.id, req.body)
+      .then(user => {
+        if(!user) return res.status(404).json({message:"no user found"})
+        res.json({message:"user successfully updated"})
+      })
+    
+  } catch (error) {
+    res.status(500).json({message: "server error"})
   }
-  User.findByIdAndUpdate(req.params.id, req.body)
-    .then(user => {
-      if(!user) return res.status(404).json({message:"no user found"})
-      res.json({message:"user successfully updated"})
-    })
   }
 
 
 //deleting user
 
 const deleteUser = async (req, res) => {
-  await User.findByIdAndRemove(req.params.id)
-    .then(user => {
-      if (!user) return  res.status(404).json({message:"no user found"})
-     
-      res.json({message:`user  ${user.name} successfully deleted`})
-    })
+  try {
+    await User.findByIdAndRemove(req.params.id)
+      .then(user => {
+        if (!user) return  res.status(404).json({message:"no user found"})
+       
+        res.json({message:`user  ${user.name} successfully deleted`})
+      })
+    
+  } catch (error) {
+    res.status(500).json({message: "server error"}) 
+  }
 }
 
 
