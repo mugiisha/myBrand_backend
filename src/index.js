@@ -9,7 +9,6 @@ import messagesRoute from "./routes/messages.routes"
 dotenv.config()
 
 const app = express();
-const PORT = 2330;
 
 
 mongoose.connect(process.env.mongoURL).then(console.log('CONNECTED TO DATABASE')).catch(err => console.log(err));
@@ -27,6 +26,8 @@ app.get('/', (req, res) => res.json({message: "welcome to my page"}))
 
 
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 2330, () => {
     console.log(`our app is listening port ${PORT}`)
-})
+});
+
+export {app as default}

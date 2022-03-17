@@ -19,27 +19,26 @@ const register = async (req, res) => {
   
         if (oldUser) {
           return res.status(400).json({message: `User with email ${email} already Exist`});
+        }else{
+
+          //Encrypt user password
+          const encryptedPassword = await bcrypt.hash(password, 10);
+      
+          // Create user in our database
+          const user = await User.create({
+            name,
+            email: email.toLowerCase(), // sanitize: convert email to lowercase
+            password: encryptedPassword,
+            role: req.body.role,
+  
+          });   
+          // return new user
+          res.status(201).json({message: "user successfully registered",user});
         }
     
-        //Encrypt user password
-        const encryptedPassword = await bcrypt.hash(password, 10);
-    
-        // Create user in our database
-        const user = await User.create({
-          name,
-          email: email.toLowerCase(), // sanitize: convert email to lowercase
-          password: encryptedPassword,
-          role: req.body.role,
-
-        });   
-        // return new user
-        res.status(201).json({message: "user successfully registered",user});
 
       } catch (error) {
-        return res.status(500).json({
-          status: 500,
-          message: "server error",
-        });
+        return res.status(500).json({ message: "server error" });
       // Our register logic ends here
       };
 }
