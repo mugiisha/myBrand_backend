@@ -9,7 +9,6 @@ import messagesRoute from "./routes/messages.routes"
 dotenv.config()
 
 const app = express();
-const PORT = process.env.PORT
 
 
 
@@ -27,8 +26,8 @@ app.get('/', (req, res) => res.json({message: "welcome to my page"}))
 
 
 
-app.listen(PORT || 2330, () => {
-    console.log(`our app is listening port ${PORT}`)
+app.listen(process.env.PORT || 2330, () => {
+    console.log(`our app is listening our port`)
 });
 
 export {app as default}
