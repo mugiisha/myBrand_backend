@@ -15,7 +15,6 @@
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/runtime": "^7.17.7",
-    "babel-cli": "^6.26.0",
     "babelrc": "^0.0.7",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.28.1",
@@ -31,9 +30,16 @@
     "supertest": "^6.2.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.5",
+    "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.0",
-    "jest": "^27.5.1"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.5.1",
+    "regenerator-runtime": "^0.13.9"
+  },
+  "resolutions": {
+    "babel-core": "7.0.0-bridge.0"
   }
 }
