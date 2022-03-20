@@ -12,7 +12,7 @@ const app = express();
 
 
 
-mongoose.connect(process.env.mongoURL).then(console.log('CONNECTED TO DATABASE')).catch(err => console.log(err));
+mongoose.connect(process.env.DATABASE_URL).then(console.log('CONNECTED TO DATABASE')).catch(err => console.log(err));
 
 app.use(express.json())
 app.use(router)
