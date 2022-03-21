@@ -7,9 +7,6 @@ dotenv.config()
 const TOKEN_KEY = process.env.TOKEN_KEY;
 
 const createblog =  async (req, res) => {
-  
- 
-
     try {
       if (!req.file) return res.status(400).json({message: "image is required"})
       
@@ -45,17 +42,26 @@ const createblog =  async (req, res) => {
 
 //getting all blogs
 
-const getblogs = (req, res) => {
+const getblogs = async (req, res) => {
   try {
-    Blogs.find({}, (err, blogs) => {
-      var blogMap = {};
+    const blogs =await Blogs.find();
+
+    if (blogs.length === 0){
+      return res.send("No blogs in the database").status(400);
+    }else {
+      res.status(200).json(blogs)
+    }
+
+
+    // Blogs.find({}, (err, blogs) => {
+    //   var blogMap = {};
   
-      blogs.forEach(blog => {
-        blogMap[blog.title] = blog;
-      });
+    //   blogs.forEach(blog => {
+    //     blogMap[blog.title] = blog;
+    //   });
   
-      res.status(200).json({blogMap})
-    });
+    //   res.status(200).json({blogMap})
+    // });
     
   } catch (error) {
     res.status(500).json({message: "server error"})
