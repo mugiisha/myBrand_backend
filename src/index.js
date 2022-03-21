@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import router from "./routes/user.routes.js";
+import cors from 'cors'
 import blogsrouter from "./routes/blogs.routes";
 import commentsrouter from "./routes/comments.routes";
 import messagesRoute from "./routes/messages.routes"
@@ -15,6 +16,7 @@ const app = express();
 mongoose.connect(process.env.DATABASE_URL).then(console.log('CONNECTED TO DATABASE')).catch(err => console.log(err));
 
 app.use(express.json())
+app.use(cors)
 app.use(router)
 app.use(blogsrouter);
 app.use(commentsrouter)
