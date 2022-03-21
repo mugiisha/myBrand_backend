@@ -1,6 +1,7 @@
 import Message from "../models/messagesSchema";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
+import { async } from "regenerator-runtime";
 dotenv.config()
 
 const TOKEN_KEY = process.env.TOKEN_KEY
@@ -26,21 +27,19 @@ const send = async (req, res) => {
 
  }
 
- const getmessages = (req, res) => {
-   try {
-     
-     Message.find({}, (err, messages) => {
-       var messageMap = {};
-   
-       messages.forEach(message => {
-         messageMap[message.name] = message;
-       });
-   
-       res.send(messageMap);  
-     });
-   } catch (error) {
+ const getmessages = async (req, res) => {
+  try {
+    const messages =await Message.find();
+
+    if (messages.length === 0){
+      return res.send("No messages found").status(400);
+    }else {
+      res.status(200).json(messages)
+    }
+    
+  } catch (error) {
     res.status(500).json({message: "server error"})
-   }
+  }
   }
   const deletemessage = (req, res) => {
     try {

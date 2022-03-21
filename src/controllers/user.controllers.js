@@ -89,22 +89,20 @@ const login = async (req, res) => {
 }
 //getting all users
 
-const getUsers = (req, res) => {
+const getUsers = async (req, res) => {
   try {
+    const users =await User.find();
+
+    if (users.length === 0){
+      return res.send("No users in the database").status(400);
+    }else {
+      res.status(200).json(users)
+    }
     
-    User.find({}, (err, users) => {
-      var userMap = {};
-  
-      users.forEach(user => {
-        userMap[user.id] = user;
-      });
-  
-      res.send(userMap);  
-    });
   } catch (error) {
     res.status(500).json({message: "server error"})
   }
-}
+  }
 //getting one user by ID
 
 const getUser = (req, res) =>{
