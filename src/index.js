@@ -15,12 +15,12 @@ const app = express();
 
 mongoose.connect(process.env.DATABASE_URL).then(console.log('CONNECTED TO DATABASE')).catch(err => console.log(err));
 
-app.use(express.json())
-app.use(cors)
-app.use(router)
+app.use(express.json());
+app.use(cors());
+app.use(router);
 app.use(blogsrouter);
-app.use(commentsrouter)
-app.use(messagesRoute)
+app.use(commentsrouter);
+app.use(messagesRoute);
 
 app.get('/', (req, res) => res.json({message: "welcome to my page"}))
 
