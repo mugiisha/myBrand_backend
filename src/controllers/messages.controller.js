@@ -18,11 +18,11 @@ const send = async (req, res) => {
       })
         // save comment
      await message.save();
-     res.json({message: `comment successfully added`, message})
+     return res.json({message: `message successfully sent`, message})
     }
     
   } catch (error) {
-    res.status(500).json({message: "server error"})
+    return res.status(500).json({message: "server error"})
   }
 
  }
@@ -34,11 +34,11 @@ const send = async (req, res) => {
     if (messages.length === 0){
       return res.send("No messages found").status(400);
     }else {
-      res.status(200).json(messages)
+      return res.status(200).json(messages)
     }
     
   } catch (error) {
-    res.status(500).json({message: "server error"})
+    return res.status(500).json({message: "server error"})
   }
   }
   const deletemessage = (req, res) => {
@@ -47,11 +47,11 @@ const send = async (req, res) => {
       .then(message => {
         if (!message) return  res.status(404).json({message:"no message found"})
        
-        res.json({message:`message wby  '${message.name}' successfully deleted`})
+        return res.json({message:`message wby  '${message.name}' successfully deleted`})
       })
       
     } catch (error) {
-      res.status(500).json({message: "server error"})
+      return res.status(500).json({message: "server error"})
     }
   }
 

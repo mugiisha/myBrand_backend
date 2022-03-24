@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">20.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/25</span>
+                <span class='fraction'>5/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.83% </span>
+                <span class="strong">21.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/24</span>
+                <span class='fraction'>5/23</span>
             </div>
         
             
@@ -120,15 +120,15 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -149,23 +149,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,6 +180,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Message from "../models/messagesSchema";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
+import { async } from "regenerator-runtime";
 dotenv.config()
 &nbsp;
 const TOKEN_KEY = process.env.TOKEN_KEY
@@ -198,30 +197,28 @@ const send = <span class="fstat-no" title="function not covered" >as</span>ync (
       })
         // save comment
 <span class="cstat-no" title="statement not covered" >     await message.save();</span>
-<span class="cstat-no" title="statement not covered" >     res.json({message: `comment successfully added`, message})</span>
+<span class="cstat-no" title="statement not covered" >     return res.json({message: `message successfully sent`, message})</span>
     }
     
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({message: "server error"})</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(500).json({message: "server error"})</span>
   }
 &nbsp;
  }
 &nbsp;
- const getmessages = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >   try {</span>
-     
-<span class="cstat-no" title="statement not covered" >     Message.find({}, <span class="fstat-no" title="function not covered" >(e</span>rr, messages) =&gt; {</span>
-       var messageMap = <span class="cstat-no" title="statement not covered" >{};</span>
-   
-<span class="cstat-no" title="statement not covered" >       messages.forEach(<span class="fstat-no" title="function not covered" >me</span>ssage =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >         messageMap[message.name] = message;</span>
-       });
-   
-<span class="cstat-no" title="statement not covered" >       res.send(messageMap);  </span>
-     });
-   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({message: "server error"})</span>
-   }
+ const getmessages = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const messages =<span class="cstat-no" title="statement not covered" >await Message.find();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (messages.length === 0){</span>
+<span class="cstat-no" title="statement not covered" >      return res.send("No messages found").status(400);</span>
+    }else {
+<span class="cstat-no" title="statement not covered" >      return res.status(200).json(messages)</span>
+    }
+    
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    return res.status(500).json({message: "server error"})</span>
+  }
   }
   const deletemessage = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
@@ -229,11 +226,11 @@ const send = <span class="fstat-no" title="function not covered" >as</span>ync (
       .then(<span class="fstat-no" title="function not covered" >me</span>ssage =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (!message) <span class="cstat-no" title="statement not covered" >return  res.status(404).json({message:"no message found"})</span></span>
        
-<span class="cstat-no" title="statement not covered" >        res.json({message:`message wby  '${message.name}' successfully deleted`})</span>
+<span class="cstat-no" title="statement not covered" >        return res.json({message:`message wby  '${message.name}' successfully deleted`})</span>
       })
       
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >      res.status(500).json({message: "server error"})</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(500).json({message: "server error"})</span>
     }
   }
 &nbsp;
@@ -244,7 +241,7 @@ const send = <span class="fstat-no" title="function not covered" >as</span>ync (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 17 2022 17:43:38 GMT+0200 (Central Africa Time)
+                at Thu Mar 24 2022 17:21:01 GMT+0200 (Central Africa Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

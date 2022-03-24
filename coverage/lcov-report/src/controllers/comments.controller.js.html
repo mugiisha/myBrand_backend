@@ -142,7 +142,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -161,7 +161,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -181,7 +181,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,7 +197,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,10 +227,10 @@ const comment = <span class="fstat-no" title="function not covered" >as</span>yn
   })
     // save comment
 <span class="cstat-no" title="statement not covered" > await comment.save();</span>
-<span class="cstat-no" title="statement not covered" >  res.json({message: `comment successfully added`, comment})</span>
+<span class="cstat-no" title="statement not covered" >  return res.json({message: `comment successfully added`, comment})</span>
     
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({message: "server error"})</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(500).json({message: "server error"})</span>
   }
 }
 &nbsp;
@@ -242,14 +242,14 @@ const getcomments = <span class="fstat-no" title="function not covered" >as</spa
     const id = <span class="cstat-no" title="statement not covered" >req.params.id</span>
 <span class="cstat-no" title="statement not covered" >    Comment.find({ blog: id}, <span class="fstat-no" title="function not covered" >fu</span>nction (err, docs) {</span>
 <span class="cstat-no" title="statement not covered" >        if (err){</span>
-<span class="cstat-no" title="statement not covered" >            res.status(500).json({message: "server error"});</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(500).json({message: "server error"});</span>
         }
         else{
-<span class="cstat-no" title="statement not covered" >            res.status(201).json({message: "comments succesfully retrieved", docs})</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(201).json({message: "comments succesfully retrieved", docs})</span>
         }
     });
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({message: "server error"})</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(500).json({message: "server error"})</span>
   }
 &nbsp;
 }
@@ -262,11 +262,11 @@ const deletecomment = <span class="fstat-no" title="function not covered" >(r</s
       .then(<span class="fstat-no" title="function not covered" >co</span>mment =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (!comment) <span class="cstat-no" title="statement not covered" >return  res.status(404).json({message:"internal error"})</span></span>
         
-<span class="cstat-no" title="statement not covered" >        res.json({message:`comment by  '${comment.name}' successfully deleted`})</span>
+<span class="cstat-no" title="statement not covered" >        return res.json({message:`comment by  '${comment.name}' successfully deleted`})</span>
       })
     
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({message: "server error"})</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(500).json({message: "server error"})</span>
   }
   }
 &nbsp;
@@ -278,11 +278,11 @@ const updatecomment = <span class="fstat-no" title="function not covered" >(r</s
       .then(<span class="fstat-no" title="function not covered" >co</span>mment =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (!comment) <span class="cstat-no" title="statement not covered" >return  res.status(404).json({message:"internal error"})</span></span>
        
-<span class="cstat-no" title="statement not covered" >        res.json({message:`comment by  '${comment.name}' successfully updated`})</span>
+<span class="cstat-no" title="statement not covered" >        return res.json({message:`comment by  '${comment.name}' successfully updated`})</span>
       })
     
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({message: "server error"}) </span>
+<span class="cstat-no" title="statement not covered" >    return res.status(500).json({message: "server error"}) </span>
   }
   }
   
@@ -295,7 +295,7 @@ export {comment, getcomments, deletecomment,updatecomment}</pre></td></tr></tabl
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 17 2022 17:43:38 GMT+0200 (Central Africa Time)
+                at Thu Mar 24 2022 17:21:01 GMT+0200 (Central Africa Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

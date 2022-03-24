@@ -1,8 +1,10 @@
 import Comment from "../models/commentsSchema";
+import blogsSchema from "../models/blogsSchema";
 
 //adding a comment on a blog
 
 const comment = async (req, res) => {
+  
   try {
     const id = req.params.id;
      const comment = await Comment.create({
@@ -12,10 +14,10 @@ const comment = async (req, res) => {
   })
     // save comment
  await comment.save();
-  res.json({message: `comment successfully added`, comment})
+  return res.json({message: `comment successfully added`, comment})
     
   } catch (error) {
-    res.status(500).json({message: "server error"})
+    return res.status(500).json({message: "server error"})
   }
 }
 
@@ -27,14 +29,14 @@ const getcomments = async (req, res) => {
     const id = req.params.id
     Comment.find({ blog: id}, function (err, docs) {
         if (err){
-            res.status(500).json({message: "server error"});
+            return res.status(500).json({message: "server error"});
         }
         else{
-            res.status(201).json({message: "comments succesfully retrieved", docs})
+            return res.status(201).json({message: "comments succesfully retrieved", docs})
         }
     });
   } catch (error) {
-    res.status(500).json({message: "server error"})
+    return res.status(500).json({message: "server error"})
   }
 
 }
@@ -47,11 +49,11 @@ const deletecomment = (req, res) => {
       .then(comment => {
         if (!comment) return  res.status(404).json({message:"internal error"})
         
-        res.json({message:`comment by  '${comment.name}' successfully deleted`})
+        return res.json({message:`comment by  '${comment.name}' successfully deleted`})
       })
     
   } catch (error) {
-    res.status(500).json({message: "server error"})
+    return res.status(500).json({message: "server error"})
   }
   }
 
@@ -63,11 +65,11 @@ const updatecomment = (req, res) => {
       .then(comment => {
         if (!comment) return  res.status(404).json({message:"internal error"})
        
-        res.json({message:`comment by  '${comment.name}' successfully updated`})
+        return res.json({message:`comment by  '${comment.name}' successfully updated`})
       })
     
   } catch (error) {
-    res.status(500).json({message: "server error"}) 
+    return res.status(500).json({message: "server error"}) 
   }
   }
   

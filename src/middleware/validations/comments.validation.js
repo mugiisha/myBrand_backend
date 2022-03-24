@@ -11,4 +11,11 @@ const commentIdValidation = (req, res, next) => {
     
 }
 
-export {commentIdValidation}
+const commentvalidation = (req, res, next)=> {
+
+    if (!(req.body.comment)) return res.status(400).json({'message' : "enter your comment"})
+
+    next()
+}
+
+export {commentIdValidation, commentvalidation}

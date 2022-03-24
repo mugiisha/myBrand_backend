@@ -33,7 +33,7 @@ const register = async (req, res) => {
   
           });   
           // return new user
-          res.status(201).json({message: "user successfully registered",user});
+         return res.status(201).json({message: "user successfully registered",user});
         }
     
 
@@ -56,7 +56,7 @@ const login = async (req, res) => {
 
     // Validate user input
     if (!(email && password)) {
-      res.status(400).json({message: "All inputs are required"});
+     return  res.status(400).json({message: "All inputs are required"});
     }
     // Validate if user exist in our database
     const user = await User.findOne({ email });
@@ -74,10 +74,10 @@ const login = async (req, res) => {
 
       const {password,_id,__v, ...userinfo} = user._doc;
      // user
-      res.status(200).json({message: `welcome ${user.name}`, userinfo });
+     return res.status(200).json({message: `welcome ${user.name}`, userinfo });
     }
 
-     res.status(400).json({message:"Invalid Credentials"});
+     return res.status(400).json({message:"Invalid Credentials"});
   }
   catch (error) {
     return res.status(500).json({
@@ -96,11 +96,11 @@ const getUsers = async (req, res) => {
     if (users.length === 0){
       return res.send("No users in the database").status(400);
     }else {
-      res.status(200).json(users)
+     return  res.status(200).json(users)
     }
     
   } catch (error) {
-    res.status(500).json({message: "server error"})
+    return res.status(500).json({message: "server error"})
   }
   }
 //getting one user by ID
@@ -110,11 +110,11 @@ const getUser = (req, res) =>{
     User.findById(req.params.id)
       .then(user =>{
         if(!user) return res.status(404).json({message:"no user found"})
-        res.status(200).json({message:`user ${user.name} succesfully retrieved`, user})
+       return res.status(200).json({message:`user ${user.name} succesfully retrieved`, user})
       })
     
   } catch (error) {
-    res.status(500).json({message: "server error"}) 
+    return res.status(500).json({message: "server error"}) 
   }
 }
 
@@ -127,11 +127,11 @@ const updateUser = async (req, res) => {
     User.findByIdAndUpdate(req.params.id, req.body)
       .then(user => {
         if(!user) return res.status(404).json({message:"no user found"})
-        res.json({message:"user successfully updated"})
+        return res.json({message:"user successfully updated"})
       })
     
   } catch (error) {
-    res.status(500).json({message: "server error"})
+    return res.status(500).json({message: "server error"})
   }
   }
 
@@ -144,11 +144,11 @@ const deleteUser = async (req, res) => {
       .then(user => {
         if (!user) return  res.status(404).json({message:"no user found"})
        
-        res.json({message:`user  ${user.name} successfully deleted`})
+        return res.json({message:`user  ${user.name} successfully deleted`})
       })
     
   } catch (error) {
-    res.status(500).json({message: "server error"}) 
+    return res.status(500).json({message: "server error"}) 
   }
 }
 
