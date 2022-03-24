@@ -11,7 +11,7 @@ dotenv.config();
 const commentsrouter = express.Router();
 commentsrouter.use(blogsRoutes)
 
-commentsrouter.post('/getblogs/:id/comment',blogIdValidation,auth,commentvalidation,   comment);
+commentsrouter.post('/getblog/:id/comment',blogIdValidation,auth,commentvalidation,   comment);
 commentsrouter.get('/getBlog/:id/getcomments', blogIdValidation, getcomments)
 commentsrouter.delete('/deletecomment/:id',commentIdValidation ,admin, deletecomment)
 commentsrouter.patch('/updatecomment/:id',commentIdValidation , updatecomment)
