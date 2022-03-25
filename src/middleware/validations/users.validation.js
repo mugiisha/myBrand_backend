@@ -16,8 +16,9 @@ const createUserValid = (req,res, next) => {
 
     if (!(name && email && password)){
         res.status(400).json({message: "All inputs are required"})
+    }else {
+        next()
     }
-    next()
 }
 const logUserValid = (req,res, next) => {
 
@@ -25,8 +26,9 @@ const logUserValid = (req,res, next) => {
 
     if (!(email && password)){
         res.status(400).json({message: "All inputs are required"})
+    }else {
+        next()
     }
-    next()
 }
 
 export {createUserValid, logUserValid, userIdValidation}

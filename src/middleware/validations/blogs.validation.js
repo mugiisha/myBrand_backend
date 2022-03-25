@@ -15,9 +15,11 @@ const createBlogValid = (req , res , next) => {
     
     if (!(title && descr)) {
         return res.status(400).json({message: "All inputs are required"});
+       }else {
+           next()
+
        }
    
-      next()
 }
 
 export {blogIdValidation, createBlogValid}

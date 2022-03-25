@@ -4,11 +4,19 @@ const messageIdValidation = (req, res, next) => {
     const isValidId = mongoose.Types.ObjectId.isValid(req.params.id);
 
     if (!isValidId) {
-        res.status(400).json({message: "no message found"})
+        return res.status(400).json({message: "no message found"})
     }else {
         next()
     }
     
 }
 
-export {messageIdValidation}
+const validmessage = (req, res, next) => {
+    if(!(req.body.message)){
+        return res.status(400).json({message : 'enter your message'})
+    }else {
+        next()
+    }
+}
+
+export {messageIdValidation, validmessage}
