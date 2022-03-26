@@ -19,18 +19,19 @@ const createblog =  async (req, res) => {
         
         if (oldBlog) {
           return res.status(409).json({message: "that title is for an existing blog!!"});
-        }
-        // Create blog in our database
-        const blog = await Blogs.create({
-          title,
-          descr,
-          author: req.user.name,
-          image:image.url
+        } else {
 
-        });
-    
-        // return new user
-        return res.status(201).json({message: "blog successfully created", blog});
+          // Create blog in our database
+          const blog = await Blogs.create({
+            title,
+            descr,
+            author: req.user.name,
+            image:image.url
+  
+          });
+      
+          return res.status(201).json({message: "blog successfully created", blog});
+        }
 
       } catch (error) {
         return res.status(500).json({

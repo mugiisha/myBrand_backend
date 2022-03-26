@@ -14,7 +14,7 @@ const createBlogValid = (req , res , next) => {
     const {title, descr} = req.body;
     
     if (!(title && descr)) {
-        return res.status(400).json({message: "All inputs are required"});
+        return res.status(400).json({message: "title and description are required"});
        }else {
            next()
 

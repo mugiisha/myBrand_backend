@@ -47,7 +47,7 @@ const send = async (req, res) => {
       .then(message => {
         if (!message) return  res.status(404).json({message:"no message found"})
        
-        return res.json({message:`message wby  '${message.name}' successfully deleted`})
+        return res.json({message:`message by  '${message.name}' successfully deleted`})
       })
       
     } catch (error) {
