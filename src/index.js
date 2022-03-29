@@ -16,7 +16,9 @@ const app = express();
 mongoose.connect(process.env.DATABASE_URL).then(console.log('CONNECTED TO DATABASE')).catch(err => console.log(err));
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "*"
+}));
 app.use(router);
 app.use(blogsrouter);
 app.use(commentsrouter);
