@@ -94,7 +94,7 @@ const getBlog = (req, res) =>{
     }
     else{
         console.log("Updated blog : ", docs);
-        res.json({docs})
+        res.json({message : "blog successfully updated", docs})
     }
 });
     
