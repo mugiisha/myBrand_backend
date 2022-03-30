@@ -88,16 +88,15 @@ const getBlog = (req, res) =>{
   //updating a blog
 
   const updateblog = async (req, res) => {
-    try {
-      Blogs.findByIdAndUpdate(req.params.id, req.body)
-        .then(blog => {
-          if(!blog) return res.status(404).json({message:"no blog found"})
-          return res.json({message:"blog successfully updated"})
-        })
-      
-    } catch (error) {
-      return res.status(500).json({message: "server error"})
+    Blogs.findByIdAndUpdate(req.params.id , req.body,{new: true},function (err, docs) {
+    if (err){
+        console.log(err)
     }
+    else{
+        console.log("Updated blog : ", docs);
+        res.json({docs})
+    }
+});
     
   }
 
